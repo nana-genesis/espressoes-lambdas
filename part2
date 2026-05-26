@@ -1,0 +1,112 @@
+# Lambda Expressions
+
+## O que é?
+
+Lambda expression é uma forma **mais curta e direta** de escrever código que implementa uma interface funcional. É como se fosse uma "função anônima" (função sem nome).
+
+## Comparação: Sem Lambda vs Com Lambda
+
+### Sem Lambda (jeito tradicional)
+java
+// Sem lambda - preciso criar uma classe anônima
+Runnable tarefa = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Executando tarefa");
+    }
+};
+
+
+### Com Lambda 
+java
+// Com lambda - muito mais simples!
+Runnable tarefa = () -> System.out.println("Executando tarefa");
+
+
+## Sintaxe básica
+
+java
+(parametros) -> { corpo da função }
+
+
+## Exemplos práticos
+
+### 1. Sem parâmetros
+java
+() -> System.out.println("Olá");
+
+
+### 2. Um parâmetro (pode omitir parênteses)
+java
+nome -> System.out.println("Olá " + nome);
+
+
+### 3. Múltiplos parâmetros
+java
+(a, b) -> a + b;
+
+
+### 4. Com return explícito
+java
+(a, b) -> {
+    int soma = a + b;
+    return soma;
+};
+
+## Exemplo real: Ordenar uma lista
+
+### Sem Lambda
+java
+List<String> nomes = Arrays.asList("João", "Ana", "Pedro");
+
+Collections.sort(nomes, new Comparator<String>() {
+    @Override
+    public int compare(String a, String b) {
+        return a.compareTo(b);
+    }
+});
+
+
+### Com Lambda
+java
+List<String> nomes = Arrays.asList("João", "Ana", "Pedro");
+nomes.sort((a, b) -> a.compareTo(b));
+
+
+**Muito mais limpo, né?**
+
+## Onde usar Lambdas?
+
+Qualquer lugar que espera uma **Interface Funcional**:
+
+- `Runnable` (threads)
+- `Comparator` (ordenação)
+- `ActionListener` (botões)
+- Streams de dados (`filter`, `map`, `forEach`)
+
+## Exemplo com Streams (mais comum)
+
+java
+List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+// Filtrar só os pares e dobrar
+numeros.stream()
+    .filter(n -> n % 2 == 0)      // lambda
+    .map(n -> n * 2)              // lambda
+    .forEach(n -> System.out.println(n));  // lambda
+
+
+## Lambda é como se fosse um **atalho** para escrever código. Em vez de criar uma classe inteira com métodos e nomes, você escreve só o essencial: "entrada -> saída". Isso torna o código mais limpo, especialmente quando você precisa fazer operações simples como filtrar uma lista, ordenar ou executar algo em uma thread.
+
+A desvantagem é que, se a lógica for muito complexa, o lambda fica confuso. Para coisas simples, ele é ótimo.
+
+## Resumo
+
+- **Lambda** = função anônima
+- **Usa** = quando precisa de Interface Funcional
+- **Vantagem** = código mais curto e legível
+- **Desvantagem** = complica se tiver muita lógica
+
+## Referência
+
+- Java 8+ (lambdas foram introduzidas no Java 8)
